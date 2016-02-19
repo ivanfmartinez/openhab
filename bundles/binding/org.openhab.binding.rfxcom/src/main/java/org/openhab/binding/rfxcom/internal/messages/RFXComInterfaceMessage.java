@@ -141,6 +141,12 @@ public class RFXComInterfaceMessage extends RFXComBaseMessage {
     public byte hardwareVersion2 = 0;
     public byte outputPower = 0;
 
+    // The new and old firmwares have different message formats
+    // The firmware version is different for each hardware
+    // Actually we dont know how to detect 
+    private boolean oldFormat = true;
+
+
     public RFXComInterfaceMessage() {
 
     }
@@ -246,13 +252,19 @@ public class RFXComInterfaceMessage extends RFXComBaseMessage {
         enableARCPackets = (data[9] & 0x02) != 0 ? true : false;
         enableX10Packets = (data[9] & 0x01) != 0 ? true : false;
 
-        enableHomeConfortPackets = (data[10] & 0x02) != 0 ? true : false;
-        enableKeeLoqPackets = (data[10] & 0x01) != 0 ? true : false;
+        if (oldFormat) {
+            hardwareVersion1 = data[10];
+            hardwareVersion2 = data[11];
+        } else {
+            enableHomeConfortPackets = (data[10] & 0x02) != 0 ? true : false;
+            enableKeeLoqPackets = (data[10] & 0x01) != 0 ? true : false;
 
-        hardwareVersion1 = data[11];
-        hardwareVersion2 = data[12];
+            hardwareVersion1 = data[11];
+            hardwareVersion2 = data[12];
         
-        outputPower = data[13];
+            outputPower = data[13];
+        }
+
     }
 
     @Override
@@ -295,12 +307,17 @@ public class RFXComInterfaceMessage extends RFXComBaseMessage {
         data[9] |= enableARCPackets ? 0x02 : 0x00;
         data[9] |= enableX10Packets ? 0x01 : 0x00;
 
-        data[10] |= enableHomeConfortPackets ? 0x02 : 0x00;
-        data[10] |= enableKeeLoqPackets ? 0x01 : 0x00;
+        if (oldFormat) {
+            data[10] = hardwareVersion1;
+            data[11] = hardwareVersion2;
+        } else {
+            data[10] |= enableHomeConfortPackets ? 0x02 : 0x00;
+            data[10] |= enableKeeLoqPackets ? 0x01 : 0x00;
 
-        data[11] = hardwareVersion1;
-        data[12] = hardwareVersion2;
-        data[13] = outputPower;
+            data[11] = hardwareVersion1;
+            data[12] = hardwareVersion2;
+            data[13] = outputPower;
+        }
 
         return data;
     }
