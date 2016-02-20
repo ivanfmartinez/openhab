@@ -21,7 +21,8 @@ public class RFXComMessagesTest {
         @Test
         public void checkNotImplementedPackets() throws Exception {
             String errors = "";
-            // Currently there are a log ot not implemented messages,group together and throw a single error message listing all
+
+            // Currently there are a lot of not implemented messages,group together and throw a single error message listing all
             for (PacketType p : PacketType.values()) {
                 if (p != PacketType.UNKNOWN) {
                     try {
@@ -40,7 +41,7 @@ public class RFXComMessagesTest {
         @Test
         public void checkDecodeMessage() throws Exception {
             String errors = "";
-            // Currently there are a log ot not implemented messages,group together and throw a single error message listing all
+            
             for (PacketType p : PacketType.values()) {
                 if (p != PacketType.UNKNOWN) {
                     try {
