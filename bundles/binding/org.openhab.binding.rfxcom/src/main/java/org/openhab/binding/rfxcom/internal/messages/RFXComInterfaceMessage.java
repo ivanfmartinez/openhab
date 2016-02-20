@@ -142,7 +142,6 @@ public class RFXComInterfaceMessage extends RFXComBaseMessage {
     public byte outputPower = 0;
 
 
-
     public RFXComInterfaceMessage() {
 
     }
