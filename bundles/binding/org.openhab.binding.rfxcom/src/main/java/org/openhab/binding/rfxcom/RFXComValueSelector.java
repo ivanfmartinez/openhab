@@ -67,9 +67,6 @@ public enum RFXComValueSelector {
     CONTACT_3("Contact3", ContactItem.class),
     VOLTAGE("Voltage", NumberItem.class),
     SET_POINT("SetPoint", NumberItem.class),
-    CONTACT_1("Contact1", ContactItem.class),
-    CONTACT_2("Contact2", ContactItem.class),
-    CONTACT_3("Contact3", ContactItem.class),
     DATE_TIME("DateTime", DateTimeItem.class),
     FREQUENCY("Frequency", NumberItem.class);
 

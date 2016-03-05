@@ -276,10 +276,6 @@ public class RFXComInterfaceMessage extends RFXComBaseMessage {
             hardwareVersion2 = data[11];
         }
 
-        hardwareVersion1 = data[11];
-        hardwareVersion2 = data[12];
-        
-        outputPower = data[13];
     }
 
     @Override
